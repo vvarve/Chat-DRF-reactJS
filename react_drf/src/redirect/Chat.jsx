@@ -63,6 +63,7 @@ const closeInput = () => {
 
 
 const clUser = async (date) => {
+    setIds(date)
     if (verify.id !== date) {
         const res = await (await chatsGet(verify.id, date)).data
         into = into.concat(res)
@@ -76,6 +77,7 @@ const clUser = async (date) => {
         setChats(res)
     }
     setIds(date)
+    closeInput()
     
 } 
 
@@ -128,15 +130,16 @@ const User = ({textu, userId}) => {
         async function getUsers() {
             const res = await usersGet()
             setNames(res.data)
-            if (ids > 0) {
-                clUser(ids)
-            }
+        }
+        if(ids > 0) {
+            clUser(ids)
         }
         getUsers()
+
     }, [])
 
-const upForm = handleSubmit(date => {
-    chatsPost(date.message, date.file[0], date.image[0], verify.id , ids)
+const upForm = handleSubmit(async date => {
+    await chatsPost(date.message, date.file[0], date.image[0], verify.id , ids)
     clUser(ids)
 })
     
