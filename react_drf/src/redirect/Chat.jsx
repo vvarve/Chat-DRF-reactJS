@@ -128,14 +128,11 @@ const User = ({textu, userId}) => {
         async function getUsers() {
             const res = await usersGet()
             setNames(res.data)
-            console.log("ok")
-            async function as() { await clUser(ids)}
-            as()
+            if (ids > 0) {
+                clUser(ids)
+            }
         }
         getUsers()
-        return() => {
-            setIds(0)
-        }
     }, [])
 
 const upForm = handleSubmit(date => {
